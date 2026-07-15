@@ -1,0 +1,1 @@
+export default function Dashboard() { return <div className="p-8">Customer Dashboard Base</div> }
