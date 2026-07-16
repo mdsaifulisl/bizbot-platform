@@ -70,30 +70,17 @@ export default function PublicHeader() {
               Home
               {/* {isActive("/") && <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full" />} */}
             </Link>
-
-            {/* Dropdown: Website Templates */}
-            <div 
-              className="relative group py-2"
-              onMouseEnter={() => setActiveDropdown("templates")}
-              onMouseLeave={() => setActiveDropdown(null)}
+            <Link 
+              to="/templates" 
+              className={`text-sm font-medium transition-colors relative py-1 duration-200 ${isActive("/templates") ? "text-primary font-semibold" : "text-zinc-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary"}`}
             >
-              <button className="flex items-center gap-1 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer">
-                <span>Website Templates</span>
-                <ChevronDown className="w-4 h-4 text-zinc-400 group-hover:text-primary transition-transform duration-200 group-hover:rotate-180" />
-              </button>
-              {activeDropdown === "templates" && (
-                <div className="absolute top-full left-0 w-52 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl shadow-xl py-2 mt-1 animate-in fade-in slide-in-from-top-2 duration-150">
-                  {dropdownData.templates.map((item) => (
-                    <Link key={item.name} to={item.path} className="flex items-center px-4 py-2 text-sm text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary hover:bg-light-bg dark:hover:bg-secondary/20 font-medium transition-colors">
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+              Website Templates
+            </Link>
+            {/* Dropdown: Website Templates */}
+            
 
             {/* Dropdown: AI Chatbot */}
-            <div 
+            {/* <div 
               className="relative group py-2"
               onMouseEnter={() => setActiveDropdown("chatbot")}
               onMouseLeave={() => setActiveDropdown(null)}
@@ -111,7 +98,14 @@ export default function PublicHeader() {
                   ))}
                 </div>
               )}
-            </div>
+            </div> */}
+
+              <Link 
+              to="/aichatbot" 
+              className={`text-sm font-medium transition-colors relative py-1 duration-200 ${isActive("/aichatbot") ? "text-primary font-semibold" : "text-zinc-500 dark:text-zinc-400 hover:text-primary dark:hover:text-primary"}`}
+            >
+              AI Chatbot
+            </Link>
 
             <Link 
               to="/pricing" 

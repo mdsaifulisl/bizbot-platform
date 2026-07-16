@@ -15,7 +15,7 @@ export default function TemplatesSection() {
   ]
 
   return (
-    <section className="py-24 bg-light-bg dark:bg-dark-bg transition-colors duration-300 relative overflow-hidden">
+    <section className="py-24 pt-0 lg:pt-20 bg-light-bg dark:bg-dark-bg transition-colors duration-300 relative overflow-hidden">
       {/* ব্যাকগ্রাউন্ড রেডিয়াল ডেকোরেশন */}
       <div className="absolute top-1/2 right-0 w-96 h-96 bg-emerald-500/[0.03] blur-[120px] rounded-full pointer-events-none"></div>
 

@@ -6,7 +6,7 @@ export default function HeroSection() {
   const [activeTab, setActiveTab] = useState<"dashboard" | "chatbot">("dashboard")
 
   return (
-    <section className="relative overflow-hidden py-24 lg:pb-32 bg-light-bg dark:bg-dark-bg transition-colors duration-300">
+    <section className="relative overflow-hidden py-24 pb-0 lg:pb-0 bg-light-bg dark:bg-dark-bg transition-colors duration-300">
       
       {/* মডার্ন গ্রিড ব্যাকগ্রাউন্ড এবং স্পটলাইট গ্লো */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>

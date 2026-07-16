@@ -11,7 +11,7 @@ import TemplatesSection from "@/components/public/home/TemplatesSection";
 
 export default function Home() {
   return (
-    <div className="p-8">
+    <div className="p-8 pt-0">
         <HeroSection /> 
         <ServicesSection />
         <TemplatesSection />

@@ -10,9 +10,9 @@ const getInitialTheme = (): Theme => {
   if (typeof window !== "undefined") {
     const savedTheme = localStorage.getItem("theme") as Theme
     if (savedTheme) return savedTheme
-    return "light" 
+    return "dark" // default theme
   }
-  return "light"
+  return "dark" // default theme for SSR
 }
 
 const initialState: ThemeState = {
