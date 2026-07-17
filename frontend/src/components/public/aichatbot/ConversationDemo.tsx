@@ -69,7 +69,7 @@ export default function ConversationDemo() {
   }
 
   return (
-    <section id="demo" className="py-20 bg-light-bg dark:bg-dark-bg transition-colors duration-300 border-b border-light-border dark:border-zinc-800/50 text-left relative overflow-hidden">
+    <section id="demo" className="py-20 bg-light-bg dark:bg-dark-bg transition-colors duration-300 border-light-border dark:border-zinc-800/50 text-left relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* সেকশন হেডার */}

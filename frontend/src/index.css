@@ -37,3 +37,14 @@ html.dark {
   background-color: var(--color-dark-bg);
   color: var(--color-zinc-50);
 }
+
+
+.prose-mini p, .prose-mini div {
+  display: inline;
+}
+.prose-mini * {
+  font-size: inherit !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}

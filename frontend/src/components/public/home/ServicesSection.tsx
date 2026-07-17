@@ -1,7 +1,8 @@
 import { Globe, Bot, CheckCircle2, ArrowRight } from "lucide-react"
-import Button from "@/components/ui/Button" // আপনার এক্সপোর্ট টাইপ অনুযায়ী আপডেট করে নিন
-
+import {useNavigate} from "react-router-dom"
+import Button from "@/components/ui/Button" 
 export default function ServicesSection() {
+  const navigate = useNavigate()
   const websiteFeatures = [
     "Modern & Minimalist Design",
     "100% Mobile Responsive",
@@ -67,6 +68,7 @@ export default function ServicesSection() {
             <Button 
               size="lg"
               className="w-full bg-light-bg dark:bg-zinc-900/60 border border-light-border dark:border-zinc-800 text-zinc-700 dark:text-zinc-200 hover:bg-emerald-500 hover:text-zinc-950 dark:hover:bg-emerald-500 dark:hover:text-zinc-950 font-bold py-3.5 rounded-xl transition-all duration-200 gap-2 group/btn"
+              onClick={() => navigate("/templates")}
             >
               Browse Templates
               <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
@@ -104,6 +106,7 @@ export default function ServicesSection() {
             <Button 
               size="lg"
               className="w-full bg-light-bg dark:bg-zinc-900/60 border border-light-border dark:border-zinc-800 text-zinc-700 dark:text-zinc-200 hover:bg-emerald-500 hover:text-zinc-950 dark:hover:bg-emerald-500 dark:hover:text-zinc-950 font-bold py-3.5 rounded-xl transition-all duration-200 gap-2 group/btn"
+              onClick={() => navigate("/ai-features")}
             >
               Explore AI Features
               <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />

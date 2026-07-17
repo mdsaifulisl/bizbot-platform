@@ -51,8 +51,8 @@ export default function Footer() {
             <ul className="space-y-2.5 text-xs sm:text-sm font-semibold text-zinc-600 dark:text-zinc-400">
               <li><Link to="/about" className="hover:text-emerald-500 transition-colors">About Us</Link></li>
               <li><Link to="/templates" className="hover:text-emerald-500 transition-colors">Latest Templates</Link></li>
-              <li><Link to="/portfolio" className="hover:text-emerald-500 transition-colors">Our Portfolio</Link></li>
-              <li><Link to="/privacy" className="hover:text-emerald-500 transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/faqs" className="hover:text-emerald-500 transition-colors">FAQs</Link></li>
+              <li><Link to="/docs" className="hover:text-emerald-500 transition-colors">Documentation</Link></li>
             </ul>
           </div>
 
