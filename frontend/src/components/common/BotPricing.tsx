@@ -1,9 +1,9 @@
-import { useState } from "react"
-import { Check, Sparkles, HelpCircle, X, AlertCircle } from "lucide-react"
+import { Check, Sparkles, HelpCircle } from "lucide-react"
 import { useNavigate } from "react-router-dom"
-import Button from "@/components/ui/Button" 
+import Button from "@/components/ui/Button"
 
-interface Tier {
+// প্রতিটি সিঙ্গেল প্ল্যান বা টিয়ারের টাইপ ডেফিনিশন
+export interface BotTier {
   id: string
   name: string
   price: string
@@ -13,11 +13,17 @@ interface Tier {
   badge?: string
 }
 
-export default function BotPricing() {
+// BotPricing কম্পোনেন্টের প্রপস ইন্টারফেস
+interface BotPricingProps {
+  tiers?: BotTier[] 
+  onPlanSelect?: (tier: BotTier) => void 
+}
+
+export default function BotPricing({ tiers, onPlanSelect }: BotPricingProps) {
   const navigate = useNavigate()
-  const [showAuthAlert, setShowAuthAlert] = useState(false)
-  
-  const tiers: Tier[] = [
+
+  // প্রপস থেকে ডেটা না আসলে এই ডিফল্ট ডেটা লোড হবে
+  const defaultTiers: BotTier[] = [
     {
       id: "1",
       name: "Starter",
@@ -67,14 +73,13 @@ export default function BotPricing() {
     }
   ]
 
-  const isLoading = false
+  const displayTiers = tiers || defaultTiers
 
-  const handleStarted = (tier: Tier) => {
-    if (isLoading) {
-      navigate(`/get-started/${tier.name}/${tier.id}`)
+  const handleStarted = (tier: BotTier) => {
+    if (onPlanSelect) {
+      onPlanSelect(tier)
     } else {
-      setShowAuthAlert(true)
-      setTimeout(() => setShowAuthAlert(false), 5000)
+      navigate(`/get-started/${tier.name}/${tier.id}`)
     }
   }
 
@@ -102,7 +107,7 @@ export default function BotPricing() {
 
         {/* প্রাইসিং কার্ড গ্রিড */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-          {tiers.map((tier) => (
+          {displayTiers.map((tier) => (
             <div
               key={tier.id}
               className={`group relative p-8 rounded-3xl border transition-all duration-300 flex flex-col justify-between ${
@@ -167,31 +172,6 @@ export default function BotPricing() {
         </div>
 
       </div>
-
-      {/* 🔔 প্রোফেশনাল অ্যালার্ট কার্ড নোটিফিকেশন */}
-      {showAuthAlert && (
-        <div className="fixed top-6 right-6 z-50 max-w-sm w-full bg-light-card dark:bg-zinc-950 border border-emerald-500/30 dark:border-emerald-500/20 rounded-2xl p-4 shadow-2xl shadow-emerald-500/10 flex items-start gap-3 text-left animate-in fade-in slide-in-from-bottom-4 duration-300">
-          <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex-shrink-0">
-            <AlertCircle className="w-4 h-4" />
-          </div>
-          
-          <div className="flex-1 space-y-1">
-            <h4 className="text-xs font-black text-zinc-900 dark:text-zinc-100">Authentication Required</h4>
-            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-semibold leading-relaxed">
-              প্ল্যানটি কিনতে প্রথমে আপনার অ্যাকাউন্টে লগইন করুন অথবা একটি নতুন অ্যাকাউন্ট তৈরি করুন।
-            </p>
-            <div className="flex gap-4 pt-1.5">
-              <button onClick={() => navigate("/customer/login")} className="text-[10px] font-black text-emerald-500 hover:underline cursor-pointer">Login Now</button>
-              <button onClick={() => navigate("/register")} className="text-[10px] font-black text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 hover:underline cursor-pointer">Create Account</button>
-            </div>
-          </div>
-
-          <button onClick={() => setShowAuthAlert(false)} className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors p-0.5 cursor-pointer">
-            <X className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      )}
-
     </section>
-  ) 
+  )
 }

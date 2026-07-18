@@ -1,4 +1,4 @@
-import { useState } from "react"
+// import { useState } from "react"
 import { Globe, MessageSquare, Send, History, BarChart3, Clock, Sparkles } from "lucide-react"
 
 export default function ChatbotFeatures() {

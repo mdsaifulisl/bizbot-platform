@@ -1,4 +1,4 @@
-import { BookOpen, Terminal, Cpu, Flame } from "lucide-react"
+import { Terminal, Cpu, Flame } from "lucide-react"
 
 export default function DocumentationHero() {
   // Quick stats/links for developers
@@ -97,3 +97,4 @@ function CodeIcon({ className }: { className?: string }) {
     </svg>
   )
 }
+

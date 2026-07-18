@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Calendar, Clock, ArrowLeft, User, Share2 } from "lucide-react"
+import { Calendar, Clock, ArrowLeft, Share2 } from "lucide-react"
 
 interface Post {
   id: string

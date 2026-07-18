@@ -1,4 +1,4 @@
-import { MessageSquare, Globe, MessageCircle, Send, Sparkles, Briefcase, Bot, Code } from "lucide-react"
+import { MessageSquare, Globe, MessageCircle, Send, Sparkles, Bot, Code } from "lucide-react"
 
 export default function SupportedPlatforms() {
   const platforms = [

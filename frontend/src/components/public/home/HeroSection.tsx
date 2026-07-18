@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ArrowRight, LayoutGrid, Play, Sparkles, Check, Bot, MessageSquare } from "lucide-react"
+import { ArrowRight, Play, Sparkles, Check, Bot, MessageSquare } from "lucide-react"
 import Button  from "@/components/ui/Button"
 
 export default function HeroSection() {

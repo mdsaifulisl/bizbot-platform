@@ -1,4 +1,4 @@
-import { Sparkles, ArrowRight, HelpCircle, Bot, Code, BarChart3, TrendingUp } from "lucide-react"
+import { Sparkles, ArrowRight, Bot, Code, BarChart3, TrendingUp } from "lucide-react"
 import Button from "@/components/ui/Button"
 
 export default function BlogHero() {

@@ -1,7 +1,8 @@
+import { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { Sparkles, ShieldCheck, CreditCard, ArrowLeft, CheckCircle2 } from "lucide-react"
 import Button from "@/components/ui/Button"
-
+import AuthAlert from "@/components/ui/AuthAlert"
 // প্ল্যান ডিটেলসের টাইপ এবং ডেটা স্ট্রাকচার
 interface PlanDetails {
   name: string
@@ -34,18 +35,30 @@ const planDataset: Record<string, PlanDetails> = {
 export default function GetStartedFree() {
   const { tierName, tierId } = useParams<{ tierName: string; tierId: string }>()
   const navigate = useNavigate()
+  const [showAuthAlert, setShowAuthAlert] = useState(false)
 
   // ইউআরএল প্যারামিটার থেকে সঠিক প্ল্যানটি ম্যাচ করানো
   const selectedPlan = tierName && planDataset[tierName] ? planDataset[tierName] : planDataset["Starter"]
 
+
+  const isLoading = false
+
+
   // SSLCommerz পেমেন্ট হ্যান্ডলার
   const handleSSLCommercePayment = () => {
     console.log(`Redirecting to SSLCommerz for Plan: ${tierName}, ID: ${tierId}`)
-    
+
+     if (!isLoading) {
+      setShowAuthAlert(true)
+      setTimeout(() => setShowAuthAlert(false), 3000)
+    }
     // আপনার MERN Stack ব্যাকএন্ড গেটওয়ে লিংক এখানে হিট হবে:
     // window.location.replace(response.data.gatewayUrl);
-    alert(`${selectedPlan.name}-এর পেমেন্ট সম্পন্ন করতে SSLCommerz গেটওয়েতে রিডাইরেক্ট করা হচ্ছে...`)
+    
   }
+
+
+
 
   return (
     <section className="min-h-screen bg-light-bg dark:bg-dark-bg transition-colors duration-300 grid grid-cols-1 lg:grid-cols-12 text-left">
@@ -155,6 +168,14 @@ export default function GetStartedFree() {
           © 2026 Expert-Coder. All Rights Reserved.
         </div>
       </div>
+
+
+       <AuthAlert 
+              isOpen={showAuthAlert}
+              onClose={() => setShowAuthAlert(false)}
+              onLogin={() => navigate("/customer/login")}
+              onRegister={() => navigate("/register")}
+            />
 
     </section>
   )

@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-type Theme = "light" | "dark"
+// export যোগ করা হয়েছে যাতে store.ts ফাইলটি এই টাইপগুলো অ্যাক্সেস করতে পারে
+export type Theme = "light" | "dark"
 
-interface ThemeState {
+export interface ThemeState {
   mode: Theme
 }
 
@@ -10,9 +11,9 @@ const getInitialTheme = (): Theme => {
   if (typeof window !== "undefined") {
     const savedTheme = localStorage.getItem("theme") as Theme
     if (savedTheme) return savedTheme
-    return "dark" // default theme
+    return "dark" 
   }
-  return "dark" // default theme for SSR
+  return "dark" 
 }
 
 const initialState: ThemeState = {

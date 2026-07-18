@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 export default function ContactCTA() {
   const navigate = useNavigate();
-  const isLoggedIn = false
+  const isLoggedIn = true
 
   return (
     <section className="py-20 bg-light-card/40 dark:bg-zinc-950/20 text-center">
@@ -16,7 +16,7 @@ export default function ContactCTA() {
           <button onClick={() => navigate(isLoggedIn ? '/ai-features' : '/register') } className="px-6 py-3 bg-emerald-500 text-white dark:text-zinc-950 text-xs font-black uppercase tracking-wider rounded-xl shadow-lg cursor-pointer">
             Start Free Trial
           </button>
-          <button onClick={() => navigate(isLoggedIn ? '/ai-features' : '/register') } className="px-6 py-3 border border-light-border dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-black uppercase tracking-wider rounded-xl bg-light-card dark:bg-dark-card cursor-pointer">
+          <button onClick={() => navigate('/pricing') } className="px-6 py-3 border border-light-border dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-black uppercase tracking-wider rounded-xl bg-light-card dark:bg-dark-card cursor-pointer">
             Book a Demo
           </button>
         </div>

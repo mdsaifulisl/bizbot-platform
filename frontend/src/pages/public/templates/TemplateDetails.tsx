@@ -1,6 +1,8 @@
 import { useState } from "react"
-import { Eye, CreditCard, Tag, ShieldCheck, CheckCircle2, ChevronRight, Mail, Phone, User } from "lucide-react"
+import { Eye, CreditCard, Tag, ShieldCheck, CheckCircle2, ChevronRight, Lock } from "lucide-react"
 import Button from "@/components/ui/Button"
+import AuthAlert from "@/components/ui/AuthAlert" 
+import { useNavigate } from "react-router-dom"
 
 interface Template {
   id: string
@@ -16,14 +18,15 @@ interface Template {
 }
 
 export default function TemplateDetails() {
-  // ডামি লগইন স্টেট (প্রকৃত অ্যাপে এটি আপনার Auth Context / Redux থেকে আসবে)
-  const [isLoggedIn] = useState<boolean>(false) // ট্রাই করার জন্য true/false করে দেখতে পারেন
+
+  // ডামি লগইন স্টেট (আপনার Auth Context / Redux / NextAuth থেকে আসবে)
+  const [isLoggedIn] = useState<boolean>(false) // চেক করার জন্য false রাখা হলো যেন অ্যালার্ট ট্রিগার হয়
 
   const template: Template = {
     id: "template-1",
     title: "AFS Travel Agency Platform",
     category: "Travel",
-    desc: "ডাইনামিক ট্যুর প্যাকেজ বুকিং, রিয়েল-টাইম সার্চ ফিল্টারিং এবং মডার্ন ট্রাভেল ল্যান্ডিং পেজ সলিউশন। এতে রয়েছে সম্পূর্ণ রেসপনসিভ ইউজার ড্যাশবোর্ড, কাস্টম অ্যাডমিন লেআউট এবং আকর্ষণীয় ফ্ল্যাট কার্ড ভিউ। কোড অত্যন্ত ক্লিন ও অপ্টিমাইজড।",
+    desc: "ডাইনামমিক ট্যুর প্যাকেজ বুকিং, রিয়েল-টাইম সার্চ ফিল্টারিং এবং মডার্ন ট্রাভেল ল্যান্ডিং পেজ সল্যুশন। এতে রয়েছে সম্পূর্ণ রেসপনসিভ ইউজার ড্যাশবোর্ড, কাস্টম অ্যাডমিন লেআউট এবং আকর্ষণীয় ফ্ল্যাট কার্ড ভিউ। কোড অত্যন্ত ক্লিন ও অপ্টিমাইজড।",
     price: 12999,
     regularPrice: 18000,
     badge: "New Release",
@@ -35,39 +38,26 @@ export default function TemplateDetails() {
     ]
   }
 
+  const navigate = useNavigate()
   const [activeImage, setActiveImage] = useState(0)
-  
-  // নন-লগইন ইউজারদের জন্য ইনফরমেশন স্টেট
-  const [guestInfo, setGuestInfo] = useState({
-    name: "",
-    phone: "",
-    email: ""
-  })
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setGuestInfo((prev) => ({ ...prev, [name]: value }))
-  }
+  const [showAuthAlert, setShowAuthAlert] = useState(false) 
 
   const handlePaymentSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (isLoggedIn) {
-      // লগইন থাকা অবস্থায় সরাসরি পেমেন্ট গেটওয়েতে রিডাইরেক্ট হবে
-      console.log("Redirecting logged-in user to Payment Gateway...", {
-        templateId: template.id,
-        amount: template.price
-      })
-      alert("আপনাকে পেমেন্ট গেটওয়েতে নিয়ে যাওয়া হচ্ছে...")
-    } else {
-      // গেস্ট ইউজারের ডাটা সহ পেমেন্ট গেটওয়েতে রিডাইরেক্ট হবে
-      console.log("Redirecting guest user to Payment Gateway...", {
-        ...guestInfo,
-        templateId: template.id,
-        amount: template.price
-      })
-      alert(`ধন্যবাদ ${guestInfo.name}! আপনাকে পেমেন্ট গেটওয়েতে নিয়ে যাওয়া হচ্ছে...`)
+    // ইউজার লগইন না থাকলে পেমেন্ট প্রসেস আটকে অ্যালার্ট দেখানো হবে
+    if (!isLoggedIn) {
+      setShowAuthAlert(true)
+      setTimeout(() => setShowAuthAlert(false), 3000)
+      return
     }
+
+    // ইউজার লগইন থাকলে সরাসরি গেটওয়েতে রিডাইরেক্ট (ডাটা ব্যাকএন্ড সেশন থেকে অটো নিয়ে নেবে)
+    console.log("Redirecting logged-in user to Payment Gateway...", {
+      templateId: template.id,
+      amount: template.price
+    })
+    alert("আপনাকে পেমেন্ট গেটওয়েতে নিয়ে যাওয়া হচ্ছে...")
   }
 
   return (
@@ -101,7 +91,7 @@ export default function TemplateDetails() {
               )}
             </div>
 
-            {/* থাম্বনেইল গ্যালারি */}
+            {/* গ্যালারি */}
             {template.images.length > 1 && (
               <div className="grid grid-cols-4 gap-3">
                 {template.images.map((img, idx) => (
@@ -130,7 +120,7 @@ export default function TemplateDetails() {
             </div>
           </div>
 
-          {/* ডান পাশ: প্রাইস এবং ডাইরেক্ট পেমেন্ট গেটওয়ে চেকআউট */}
+          {/* ডান পাশ: প্রাইস এবং চেকআউট অ্যাকশন */}
           <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-6">
             
             {/* প্রাইস ইনফো কার্ড */}
@@ -174,92 +164,48 @@ export default function TemplateDetails() {
               </div>
             </div>
 
-            {/* কন্ডিশনাল গেটওয়ে ফর্ম */}
+            {/* কন্ডিশনাল পেমেন্ট কার্ড (কোন ইনপুট ফিল্ড ছাড়া) */}
             <div className="p-6 rounded-3xl border border-light-border dark:border-zinc-800 bg-light-card dark:bg-dark-card space-y-5">
               <h3 className="text-sm font-black text-zinc-900 dark:text-zinc-50 uppercase tracking-wide flex items-center gap-2">
-                <CreditCard className="w-4 h-4 text-emerald-500" /> Secure Payment
+                <CreditCard className="w-4 h-4 text-emerald-500" /> Secure Checkout
               </h3>
 
               <hr className="border-light-border dark:border-zinc-800/60" />
 
               <form onSubmit={handlePaymentSubmit} className="space-y-4">
                 
-                {/* ইউজার লগইন না থাকলে কন্টাক্ট ইনফরমেশন ফর্ম দেখাবে */}
-                {!isLoggedIn && (
-                  <div className="space-y-4 animate-fade-in">
-                    <p className="text-[11px] text-zinc-400 dark:text-zinc-500 leading-normal font-semibold">
-                      ডাউনলোড লিংক এবং চালান ইমেইলে পাওয়ার জন্য নিচের ঘরগুলো পূরণ করুন।
-                    </p>
-                    
-                    {/* নাম */}
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-xs font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                        <User className="w-3.5 h-3.5 text-zinc-400" /> আপনার নাম *
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        value={guestInfo.name}
-                        onChange={handleInputChange}
-                        placeholder="যেমন: মাহিদুল মল্লিক"
-                        className="w-full px-4 py-2.5 text-xs bg-zinc-50 dark:bg-zinc-900 border border-light-border dark:border-zinc-800 rounded-xl text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                      />
-                    </div>
-
-                    {/* মোবাইল নম্বর */}
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-xs font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                        <Phone className="w-3.5 h-3.5 text-zinc-400" /> মোবাইল নম্বর *
-                      </label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        required
-                        value={guestInfo.phone}
-                        onChange={handleInputChange}
-                        placeholder="01XXXXXXXXX"
-                        className="w-full px-4 py-2.5 text-xs bg-zinc-50 dark:bg-zinc-900 border border-light-border dark:border-zinc-800 rounded-xl text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                      />
-                    </div>
-
-                    {/* ইমেইল ঠিকানা */}
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-xs font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                        <Mail className="w-3.5 h-3.5 text-zinc-400" /> ইমেইল ঠিকানা *
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        required
-                        value={guestInfo.email}
-                        onChange={handleInputChange}
-                        placeholder="example@mail.com"
-                        className="w-full px-4 py-2.5 text-xs bg-zinc-50 dark:bg-zinc-900 border border-light-border dark:border-zinc-800 rounded-xl text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-emerald-500 transition-colors"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* লগইন থাকলে একটি ছোট কুইক পেমেন্ট নোটিশ দেখাবে */}
-                {isLoggedIn && (
-                  <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 text-xs font-semibold text-zinc-600 dark:text-zinc-400 leading-normal animate-fade-in">
+                {/* লগইন স্ট্যাটাস মেসেজ */}
+                {isLoggedIn ? (
+                  <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 text-xs font-semibold text-zinc-600 dark:text-zinc-400 leading-normal">
                     <div className="flex items-center gap-2 text-emerald-500 font-black mb-1">
                       <CheckCircle2 className="w-4 h-4" /> Account Verified
                     </div>
-                    আপনি ইতিমধ্যে লগইন আছেন। পেমেন্ট সম্পন্ন হওয়ামাত্র আপনার ড্যাশবোর্ডে কোড ফাইলটি যুক্ত হয়ে যাবে।
+                    আপনার প্রোফাইল ডাটা ব্যবহার করে পেমেন্ট প্রসেস করা হবে। ফাইলটি সরাসরি আপনার ড্যাশবোর্ডে যোগ হবে।
+                  </div>
+                ) : (
+                  <div className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/10 text-xs font-semibold text-zinc-600 dark:text-zinc-400 leading-normal">
+                    <div className="flex items-center gap-2 text-amber-500 font-black mb-1">
+                      <Lock className="w-4 h-4" /> Authentication Required
+                    </div>
+                    টেমপ্লেটটি কিনতে এবং ইনস্ট্যান্ট ডাউনলোড এক্সেস পেতে আপনাকে অবশ্যই অ্যাকাউন্টে লগইন থাকতে হবে।
                   </div>
                 )}
 
-                {/* পেমেন্ট টোটাল সামারি */}
+                {/* টোটাল সামারি */}
                 <div className="bg-zinc-50 dark:bg-zinc-900/50 p-4 rounded-2xl border border-light-border dark:border-zinc-800 flex justify-between items-center text-xs font-bold">
                   <span className="text-zinc-500">Amount Payable</span>
                   <span className="text-emerald-500 text-sm font-black">৳{template.price.toLocaleString("bn-BD")}</span>
                 </div>
 
-                {/* ডাইরেক্ট পেমেন্ট বাটন */}
-                <Button type="submit" variant="primary" size="md" className="w-full py-3 text-xs gap-1.5 shadow-md shadow-emerald-500/10">
-                  <CreditCard className="w-4 h-4" /> Pay & Download Now
+                {/* অ্যাকশন বাটন */}
+                <Button 
+                  type="submit" 
+                  variant="primary" 
+                  size="md" 
+                  className="w-full py-3 text-xs gap-1.5 shadow-md shadow-emerald-500/10"
+                >
+                  <CreditCard className="w-4 h-4" /> 
+                  {isLoggedIn ? "Pay & Download Now" : "Login to Purchase"}
                 </Button>
 
                 <div className="flex items-center justify-center gap-1 text-[10px] text-zinc-400 dark:text-zinc-500 font-bold pt-1">
@@ -272,6 +218,20 @@ export default function TemplateDetails() {
         </div>
 
       </div>
+
+      {/* 🔔 অথেনটিকেশন পপ-আপ অ্যালার্ট */}
+      <AuthAlert 
+        isOpen={showAuthAlert}
+        onClose={() => setShowAuthAlert(false)}
+        onLogin={() => {
+          setShowAuthAlert(false)
+          
+        }}
+        onRegister={() => {
+          setShowAuthAlert(false)
+          navigate("/register")
+        }}
+      />
     </div>
   )
 }

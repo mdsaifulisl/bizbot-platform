@@ -1,4 +1,4 @@
-import { HelpCircle, Globe, MessageSquare, Send, Cpu, CreditCard, User, ShieldAlert } from "lucide-react"
+import { HelpCircle, Globe, MessageSquare, Send, Cpu, CreditCard, ShieldAlert } from "lucide-react"
 
 interface FAQCategoriesProps {
   selectedCategory: string

@@ -1,22 +1,70 @@
-import { useState } from "react"
-import { ShoppingBag, Utensils, Home, Briefcase, Building2, User, ArrowRight } from "lucide-react"
+// import { useState } from "react"
+import { ArrowRight } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 import Button from "@/components/ui/Button"
+import TemplateGrid, { TemplateItem } from "@/components/public/template/TemplateGrid"
 
 export default function TemplatesSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const navigate = useNavigate()
 
-  const templates = [
-    { title: "E-commerce", icon: ShoppingBag, desc: "Modern storefronts with quick checkout & regional logistics.", tag: "Popular" },
-    { title: "Restaurant", icon: Utensils, desc: "Interactive menus and online reservation capabilities.", tag: "Fresh" },
-    { title: "Real Estate", icon: Home, desc: "Property listing management with advanced search filters.", tag: "New" },
-    { title: "Agency", icon: Briefcase, desc: "High-converting layouts for dynamic creative studios.", tag: "Trending" },
-    { title: "Company", icon: Building2, desc: "Professional corporate identities to establish solid trust.", tag: "Classic" },
-    { title: "Portfolio", icon: User, desc: "Minimalist and clean spaces for developers & designers.", tag: "Hot" },
+  // হোমপেজে প্রিভিউ দেখানোর জন্য রিয়েল ডাটা সোর্স (টপ ৩টি টেমপ্লেট)
+  const featuredTemplates: TemplateItem[] = [
+    {
+      id: "template-1",
+      title: "AFS Travel Agency Platform",
+      category: "Travel",
+      desc: "ডাইনামিক ট্যুর প্যাকেজ বুকিং, রিয়েল-টাইম সার্চ ফিল্টারিং এবং মডার্ন ট্রাভেল ল্যান্ডিং পেজ সリューション।",
+      price: "৳১২,৯৯৯",
+      regularPrice: "৳১৮,০০০",
+      badge: "New Release",
+      liveLink: "https://facebook.com/",
+      buyLink: "#",
+      stack: ["React", "Tailwind CSS", "MongoDB"],
+      images: [
+        "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=600&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=600&auto=format&fit=crop"
+      ]
+    },
+    {
+      id: "template-2",
+      title: "Gadget Mart E-Commerce",
+      category: "E-Commerce",
+      desc: "কাস্টম কার্ট, অ্যাডমিন লেআউট এবং ক্যাশ অন ডেলিভারি (ঢাকা ৳৬০ / বাইরে ৳১২০) সেটআপ সহ কমপ্লিট শপ।",
+      price: "৳১৯,৯৯৯",
+      regularPrice: "৳২৫,০০০",
+      badge: "Best Seller",
+      liveLink: "#",
+      buyLink: "#",
+      stack: ["React", "Node.js", "Express", "MongoDB"],
+      images: [
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop"
+      ]
+    },
+    {
+      id: "template-3",
+      title: "Minimal Portfolio for Developers",
+      category: "Portfolio",
+      desc: "ক্লিন ফ্ল্যাট ডিজাইন, ডার্ক মোড সাপোর্ট এবং লাইটওয়েট পারফরম্যান্সের জন্য অপ্টিমাইজড পোর্টফোলিও।",
+      price: "৳৪,৯৯৯",
+      regularPrice: "৳৭,৫০০",
+      badge: "Trending",
+      liveLink: "#",
+      buyLink: "#",
+      stack: ["React.js", "Tailwind CSS"],
+      images: [
+        "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop"
+      ]
+    }
   ]
+
+  // 'View All Templates' বাটনে ক্লিক করলে মূল টেমপ্লেট পেজে নিয়ে যাওয়ার ফাংশন
+  const handleViewAll = () => {
+    navigate("/templates") // আপনার রাউট অনুযায়ী পাথ পরিবর্তন করতে পারেন
+  }
 
   return (
     <section className="py-24 pt-0 lg:pt-20 bg-light-bg dark:bg-dark-bg transition-colors duration-300 relative overflow-hidden">
-      {/* ব্যাকগ্রাউন্ড রেডিয়াল ডেকোরেশন */}
+      {/* ব্যাকগ্রাউন্ড গ্লো ইফেক্ট */}
       <div className="absolute top-1/2 right-0 w-96 h-96 bg-emerald-500/[0.03] blur-[120px] rounded-full pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -32,61 +80,31 @@ export default function TemplatesSection() {
             </p>
           </div>
           
-          {/* টপ ভিউ অল বাটন (ডেস্কটপ) */}
+          {/* ডেস্কটপ বাটন */}
           <div className="hidden md:block">
-            <Button variant="outline" className="gap-2 group">
+            <Button 
+              variant="outline" 
+              className="gap-2 group"
+              onClick={handleViewAll}
+            >
               View All Templates
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </div>
         </div>
 
-        {/* ৬টি প্রিমিয়াম কার্ডের গ্রিড */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {templates.map((template, idx) => {
-            const Icon = template.icon
-            return (
-              <div
-                key={idx}
-                onMouseEnter={() => setHoveredIndex(idx)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="group relative p-6 sm:p-8 rounded-2xl border border-light-border dark:border-dark-border bg-light-card dark:bg-dark-card hover:border-emerald-500/30 dark:hover:border-emerald-500/20 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  {/* কার্ড টপ (আইকন ও ব্যাজ) */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-3 bg-light-bg dark:bg-zinc-900 border border-light-border dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-xl group-hover:text-emerald-500 group-hover:border-emerald-500/20 transition-colors duration-200">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <span className="text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:bg-emerald-500/10 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors duration-200">
-                      {template.tag}
-                    </span>
-                  </div>
+        {/* টেমপ্লেট গ্রিড রেন্ডারিং */}
+        <TemplateGrid templates={featuredTemplates} />
 
-                  {/* টাইটেল ও বর্ণনা */}
-                  <h3 className="text-lg font-bold text-zinc-800 dark:text-zinc-100 mb-2">
-                    {template.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-6">
-                    {template.desc}
-                  </p>
-                </div>
-
-                {/* ইন্টারেক্টিভ কুইক অ্যাকশন লিঙ্ক */}
-                <div className="flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 opacity-80 group-hover:opacity-100 transition-opacity">
-                  <span>Preview Layout</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-                </div>
-              </div>
-            )
-          })}
-        </div>
-
-        {/* বটম ভিউ অল বাটন (মোবাইল স্ক্রিনের জন্য রেসপনসিভ) */}
-        <div className="mt-10 text-center md:hidden">
-          <Button variant="outline" className="w-full gap-2 justify-center">
+        {/* মোবাইল রেসপন্সিভ বাটন */}
+        <div className="mt-12 text-center md:hidden">
+          <Button 
+            variant="outline" 
+            className="w-full gap-2 justify-center group"
+            onClick={handleViewAll}
+          >
             View All Templates
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>
 

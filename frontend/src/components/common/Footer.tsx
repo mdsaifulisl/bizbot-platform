@@ -72,7 +72,7 @@ export default function Footer() {
               <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="p-2.5 bg-light-card dark:bg-zinc-900 border border-light-border dark:border-zinc-800 rounded-xl text-zinc-500 dark:text-zinc-400 hover:text-emerald-500 dark:hover:text-emerald-400 hover:border-emerald-500/20 transition-all">
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                  <rect width="4" h="12" x="2" y="9" />
+                  <rect width="20" height="20" x="2" y="2" />
                   <circle cx="4" cy="4" r="2" />
                 </svg>
               </a>

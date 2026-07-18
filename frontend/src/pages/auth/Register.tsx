@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Eye, EyeOff, User, Mail, Lock } from "lucide-react"
 
 export default function Register() {

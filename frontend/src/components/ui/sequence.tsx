@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 
 // Sequence কম্পোনেন্টের জন্য টাইপ ইন্টারফেস
 interface SequenceProps {

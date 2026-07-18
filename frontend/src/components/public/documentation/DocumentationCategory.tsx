@@ -1,8 +1,8 @@
-import { useState } from "react"
-import { Search, ChevronRight, BookOpen, Layers, Terminal, Sparkles, Code2, ShieldAlert, Cpu } from "lucide-react"
+// import { useState } from "react"
+import { ChevronRight, BookOpen, Layers, Terminal, Sparkles, Code2, ShieldAlert, Cpu } from "lucide-react"
 
 export default function DocumentationCategory() {
-  const [searchQuery, setSearchQuery] = useState("")
+  // const [searchQuery, setSearchQuery] = useState("")
 
   // 1. Categories Data
   const categories = [
