@@ -1,6 +1,12 @@
 import { Mail, MessageCircle } from "lucide-react"
 
 export default function ContactSupport() {
+  // লাইভ চ্যাট ড্রয়ার ওপেন করার ফাংশন
+  const openLiveChat = () => {
+    const event = new CustomEvent("open-live-chat")
+    window.dispatchEvent(event)
+  }
+
   return (
     <div className="bg-light-card dark:bg-dark-card border border-light-border dark:border-zinc-800/80 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
       <div className="space-y-1 text-center md:text-left">
@@ -18,7 +24,12 @@ export default function ContactSupport() {
           <Mail className="w-4 h-4 text-zinc-400" />
           support@botsaiful.com
         </a>
-        <button className="flex items-center gap-2 px-5 py-2.5 text-xs font-bold rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition-all cursor-pointer shadow-sm shadow-emerald-500/10">
+        
+        {/* onClick যোগ করা হয়েছে */}
+        <button 
+          onClick={openLiveChat}
+          className="flex items-center gap-2 px-5 py-2.5 text-xs font-bold rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition-all cursor-pointer shadow-sm shadow-emerald-500/10"
+        >
           <MessageCircle className="w-4 h-4" />
           Live Chat
         </button>
